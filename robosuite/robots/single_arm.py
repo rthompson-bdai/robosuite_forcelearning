@@ -357,6 +357,7 @@ class SingleArm(Manipulator):
             names += [f"{pf}ee_force", f"{pf}ee_torque"]
             actives += [True, True]
 
+
         # Create observables for this robot
         for name, s, active in zip(names, sensors, actives):
             observables[name] = Observable(
