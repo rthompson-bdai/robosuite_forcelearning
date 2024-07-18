@@ -338,6 +338,26 @@ class SingleArm(Manipulator):
             names += [f"{pf}gripper_qpos", f"{pf}gripper_qvel"]
             actives += [True, True]
 
+            @sensor(modality=modality)
+            def ee_force(obs_cache):
+                """
+                Returns:
+                    np.array: force applied at the force sensor at the robot arm's eef
+                """
+                return self.get_sensor_measurement(self.gripper.important_sensors["force_ee"])
+
+            @sensor(modality=modality)
+            def ee_torque(obs_cache):
+                """
+                Returns torque applied at the torque sensor at the robot arm's eef
+                """
+                return self.get_sensor_measurement(self.gripper.important_sensors["torque_ee"])
+
+            sensors += [ee_force, ee_torque]
+            names += [f"{pf}ee_force", f"{pf}ee_torque"]
+            actives += [True, True]
+
+
         # Create observables for this robot
         for name, s, active in zip(names, sensors, actives):
             observables[name] = Observable(

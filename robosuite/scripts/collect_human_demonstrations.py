@@ -171,6 +171,7 @@ def gather_demonstrations_as_hdf5(directory, out_dir, env_info):
     f.close()
 
 
+
 if __name__ == "__main__":
     # Arguments
     parser = argparse.ArgumentParser()
@@ -211,6 +212,8 @@ if __name__ == "__main__":
     # Create environment
     env = suite.make(
         **config,
+        single_object_mode=2,
+        nut_type="round",
         has_renderer=True,
         has_offscreen_renderer=False,
         render_camera=args.camera,
